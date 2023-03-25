@@ -6,41 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Post Video</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <header>
-        <h1> Web 317 Assignment 2 </h1> 
+        <h1> Bilibili Video Community </h1> 
     </header>
-    <div> Post Video Page </div>
+    <div class="content">
+        <nav>
+            <a href="Index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="registration.html">Registration</a>
+            <a class="current" href="postvideo.html">Postvideo</a>
+            <a href="viewpost.html">Viewpost</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="title"> Post Video Page </div>
+        <br>
+        
 
-    <br>
-    <nav>
-        <a href="Index.html"> Home </a>
-        <br><a href="login.html">Login </a>
-        <br><a href="registration.html">Registration </a>
-        <br><a href="postvideo.html">Postvideo</a>
-        <br><a href="viewpost.html">Viewpost</a>
-        <br><a href="profile.html">Profile</a>
-    </nav>
-    <br>
-    <br>
+        <section>
+            <p> </p>
 
-    <section>
-        <p> </p>
-
-        <form>
-            <label for="title">Title:</label>
-            <input required type="text" id="title" name="title"><br>
-            <label for="description">Description:</label>
-            <input required type="text" id="description" name="description"><br>
-            <label for="video">Video :</label>
-            <input type="file" id="video" name="video" accept="video/*"><br>
-            <label for="accept_tos">Accept <a href="">terms of service to upload videos</a>:</label>
-            <input required type="checkbox" id="accept_tos" name="accept_tos"><br>
-            <input required type="submit" value="Submit">
-        </form>
-    </section>
+            <form>
+                <label for="title">Title:</label>
+                <input required type="text" id="title" name="title"><br>
+                <label for="description">Description:</label>
+                <input required type="text" id="description" name="description"><br>
+                <label for="video">Video :</label>
+                <input type="file" id="video" name="video" accept="video/*"><br>
+                <label for="accept_tos">Accept <a href="">terms of service to upload videos</a>:</label>
+                <input required type="checkbox" id="accept_tos" name="accept_tos"><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </div>
     <footer>
         <p><a href="mailto:tfeng@sfsu.edu"> @copyrightTingFeng </a> </p>
     </footer>

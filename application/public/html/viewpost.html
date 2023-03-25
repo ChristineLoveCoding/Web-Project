@@ -6,42 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Video</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <header>
-        <h1> Web 317 Assignment 2 </h1>
+        <h1> Bilibili Video Community </h1>
     </header>
-    <div> View Post Page </div>
-    <br>
-
-    <nav>
-        <a href="Index.html"> Home </a>
-        <br><a href="login.html">Login </a>
-        <br><a href="registration.html">Registration </a>
-        <br><a href="postvideo.html">Postvideo</a>
-        <br><a href="viewpost.html">Viewpost</a>
-        <br><a href="profile.html">Profile</a>
-    </nav>
-    <br>
-    <br>
-
-    <section>
-        <p> </p>
-        <h2> This is the video titile </h2>
-        <div>
-            <video width="320" height="240" controls>
-                <source src="sample_video.mov" type="video/mov">
-            </video>
-            <p> Video Author: XXX </p>
-            <p> Video Created At: 2023 Jan 1 </p>
-            <ul>
-                <li>comment 1</li>
-                <li>comment 2</li>
-                <li>comment 3</li>
-            </ul>
-        </div>
-    </section>
+   
+    <div class="content">
+        <nav>
+            <a href="Index.html">Home</a>
+            <a href="login.html">Login</a>
+            <a href="registration.html">Registration</a>
+            <a href="postvideo.html">Postvideo</a>
+            <a class="current" href="viewpost.html">Viewpost</a>
+            <a href="profile.html">Profile</a>
+        </nav>
+        <div class="title"> View Post Page </div>
+        <br>
+        <section>
+            <p> </p>
+            <h2> Christine's school life vlog 1 </h2>
+            <div>
+                <video width="320" height="240" controls>
+                    <source src="sample_video.mov" type="video/mov">
+                </video>
+                <br>
+                <button id="subscribe">Subscribe</button>
+                <p> Video Author: Christine </p>
+                <p> Video Created At: 2023 Jan 1 </p>
+                <ul>
+                    <li> Fred: Ur school vlogs are actually cool. We love to see more!</li>
+                    <li>Cindy: Love it.</li>
+                    <li>Annie: She actually makes me wanna go to school.</li>
+                </ul>
+            </div>
+        </section>
+    </div>
     <footer>
         <p><a href="mailto:tfeng@sfsu.edu"> @copyrightTingFeng </a> </p>
     </footer>
