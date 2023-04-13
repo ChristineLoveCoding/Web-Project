@@ -42,6 +42,7 @@ nav a.current{
 
 nav a:hover {background-color: #3e8e41}
 
+
 nav a:active {
   background-color: #3e8e41;
   box-shadow: 0 5px #666;
@@ -58,7 +59,7 @@ footer {
 }
 
 form{
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .horizontal {
@@ -108,4 +109,5 @@ img {
     transform: rotateZ(0);
   }
 }
+
 
