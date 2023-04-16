@@ -1,27 +1,104 @@
-const username = document.getElementById('username');
-username.addEventListener("input", (event) => {
-    function validate(t) {
-        if (t.length == 0) {
-            return 'username cannot be empty';
-        }
-        if (t.length < 3) {
-            return 'enter a username that is 3 or more alphanumeric characters.';
-        }
-        if (!t.charAt(0).match(/[a-zA-Z]/)) {
-            return 'enter a username that begins with a character ([a-zA-Z]) ';
-        }
-        return "";
+function configureMessageDisplay(inputId) {
+    let input = document.getElementById(inputId);
+    let message = document.getElementById(inputId + "_validation");
+    input.onfocus = function () {
+        message.style.display = "block";
+    };
+    input.onblur = function () {
+        message.style.display = "none";
     }
-    username.setCustomValidity(validate(username.value));
-});
+}
+configureMessageDisplay("username");
+configureMessageDisplay("password");
+configureMessageDisplay("confirm_password");
 
-const email = document.getElementById('email');
-email.addEventListener("input", (event) => {
-    function validate(t) {
-        return "TODO";
+function setValidity(message, isValid) {
+    if (isValid) {
+        message.classList.remove("invalid");
+        message.classList.add("valid");
+    } else {
+        message.classList.remove("valid");
+        message.classList.add("invalid");
     }
-    email.setCustomValidity(validate(email.value));
-});
+    return isValid
+}
+
+var startWithLetter = document.getElementById("usr1");
+var lengthThree = document.getElementById("usr2");
+var username = document.getElementById("username");
+username.oninput = function(){
+    let msg = "";
+    if (!setValidity(startWithLetter, username.value.match(/^[a-zA-Z]/g))) {
+        msg = "username must start with a letter";
+    }
+    if (!setValidity(lengthThree, username.value.length >=3)) {
+        msg = "username must be 3 or more alphanumeric characters";
+    }
+    username.setCustomValidity(msg);
+}
+
+// When the user starts to type something inside the password field
+var letter = document.getElementById("letter");
+var capital = document.getElementById("capital");
+var number = document.getElementById("number");
+var length = document.getElementById("length");
+var password = document.getElementById("password");
+password.oninput = function () {
+  // Validate lowercase letters
+  let msg = "";
+  if (!setValidity(letter, password.value.match(/[/*\-+!@#$^&~[\]]/g))) {
+    msg = "Password must contain / * - + ! @ # $ ^ & ~ [ ]";
+  }
+  // Validate capital letters
+  if (!setValidity(capital, password.value.match(/[A-Z]/g))) {
+    msg = "Password must contain a capital (uppercase) letter !";
+  }
+  // Validate numbers
+  if (!setValidity(number, password.value.match(/[0-9]/g))) {
+    msg = "Password must contain a number !";
+  }
+  if (!setValidity(length, password.value.length >=8)) {
+    msg = "Password must be more than 8 characters ! ";
+  }
+  password.setCustomValidity(msg);
+};
+
+var matchPassword = document.getElementById("match_p");
+var confirm_p = document.getElementById("confirm_password");
+confirm_p.oninput = function(){
+    let  msg2 = "";
+    if (!setValidity(matchPassword, confirm_p.value === password.value)) {
+        msg2 = "The password doesn't match !";
+    }
+    
+    confirm_p.setCustomValidity(msg2);
+    
+};
+
+var submit = document.getElementById("submit");
+
+submit.onclick= function(ev){
+    ev.preventDefault();
+    location.reload();
+    alert("The form is submitted! You have registered sucessfully! ");
+};
+
+// const username = document.getElementById("username");
+// username.addEventListener("input", (event) => {
+//   function validate(t) {
+//     if (t.length == 0) {
+//       return "username cannot be empty";
+//     }
+//     if (t.length < 3) {
+//       return "enter a username that is 3 or more alphanumeric characters.";
+//     }
+//     if (!t.charAt(0).match(/[a-zA-Z]/)) {
+//       return "enter a username that begins with a character ([a-zA-Z]) ";
+//     }
+//     return "";
+//   }
+//   username.setCustomValidity(validate(username.value));
+// });
 
 // const password = document.getElementById('password');
 // const form = document.getElementById('form');
