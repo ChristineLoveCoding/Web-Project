@@ -10,9 +10,9 @@ Please follow the instructions below and fill in the information requested when 
 
 |               | Information   |
 |:-------------:|:-------------:|
-| Student Name  | Ting Feng    |
-| Student ID    |922992561       |
-| Student Email | tfeng@sfsu.edu   |
+| Student Name  | Ting Feng     |
+| Student ID    | 922992561     |
+| Student Email | tfeng@sfsu.edu|
 
 
 
@@ -23,5 +23,5 @@ Please follow the instructions below and fill in the information requested when 
 2. steps here
 
 ## Run Instructions
-1. steps here
-2. steps here 
+1. username, email, password and confirm password validations as requirments.
+2. clicks photos and it will fade out.
