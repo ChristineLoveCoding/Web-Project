@@ -50,11 +50,12 @@ nav a:active {
 }
 
 footer {
-  position: fixed;
+  position: flex;
+  margin-top: 8cm;
   bottom: 0;
   width: 100%;
   height: 60px;   /* Height of the footer */
-  background-color: #4CAF50;
+  background-color: green;
 
 }
 
@@ -158,4 +159,45 @@ img {
   position: relative;
   left: -35px;
   content: "✖";
+}
+
+#photo_count {
+  color: #3e8e41;
+
+}
+
+#line3 {
+  margin-left: 10px;
+}
+
+.photo_wrapper {
+    transition: 1s linear all;
+    height: 100px;
+    width: 100px;
+    position: relative;
+    margin: 5px;
+}
+
+.hide {
+  opacity: 0;
+}
+
+#photo_data {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.photo_wrapper img{
+  position: absolute;
+  left: 0;
+  top:0;
+}
+
+.photo_wrapper span{
+  position:absolute;
+  color:white;
+  font-size: 10px;
+  left: 40px;
+  top: 30px;
 }

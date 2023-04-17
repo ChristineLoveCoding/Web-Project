@@ -83,29 +83,10 @@ submit.onclick= function(ev){
     alert("The form is submitted! You have registered sucessfully! ");
 };
 
-// const username = document.getElementById("username");
-// username.addEventListener("input", (event) => {
-//   function validate(t) {
-//     if (t.length == 0) {
-//       return "username cannot be empty";
-//     }
-//     if (t.length < 3) {
-//       return "enter a username that is 3 or more alphanumeric characters.";
-//     }
-//     if (!t.charAt(0).match(/[a-zA-Z]/)) {
-//       return "enter a username that begins with a character ([a-zA-Z]) ";
-//     }
-//     return "";
-//   }
-//   username.setCustomValidity(validate(username.value));
-// });
-
-// const password = document.getElementById('password');
-// const form = document.getElementById('form');
-// const test =document.getElementById("test");
 
 //Part 1
 /*
+
  require the user to enter a username that begins with a character ([a-zA-Z]).
 o require the user to enter a username that is 3 or more alphanumeric characters.
 o require the user to enter a password that is 8 or more characters AND contains at least
