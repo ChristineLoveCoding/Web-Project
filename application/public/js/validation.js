@@ -75,13 +75,13 @@ confirm_p.oninput = function(){
     
 };
 
-var submit = document.getElementById("submit");
+// var submit = document.getElementById("submit");
 
-submit.onclick= function(ev){
-    ev.preventDefault();
-    location.reload();
-    alert("The form is submitted! You have registered sucessfully! ");
-};
+// submit.onclick= function(ev){
+//     ev.preventDefault();
+//     location.reload();
+//     alert("The form is submitted! You have registered sucessfully! ");
+// };
 
 
 //Part 1
