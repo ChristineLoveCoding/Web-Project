@@ -2,7 +2,7 @@ const createError = require("http-errors");
 const express = require("express");
 const favicon = require('serve-favicon');
 const path = require("path");
-const cookieParser = require("cookie-parser");
+const cookieSession = require('cookie-session')
 const logger = require("morgan");
 const handlebars = require("express-handlebars");
 const indexRouter = require("./routes/index");
@@ -29,7 +29,10 @@ app.set("view engine", "hbs");
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use("/public", express.static(path.join(__dirname, "public")));

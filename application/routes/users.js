@@ -8,11 +8,14 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/login", function (req, res, next) {
-  console.log(req.body);
   db.login(req.body.username, req.body.password, function(error, user) {
     if (error) {
       res.status(500).send(`errors: ${error}`);
     } else {
+      req.session = {
+        username: user.username,
+        email: user.email
+      };
       res.render("profile", { title: "profile", username: user.username, email: user.email});
     }
   });
@@ -57,6 +60,10 @@ router.post('/registration', function(req, res, next) {
     if (error) {
       res.status(500).send(`errors: ${error}`);
     } else {
+      req.session = {
+        username: req.body.username,
+        email: req.body.email
+      }
       res.render("profile", { title: "profile", username: req.body.username, email: req.body.email});
     }
   });

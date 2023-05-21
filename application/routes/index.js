@@ -3,31 +3,31 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'home', name:" Christine " });
+  res.render('index', { title: 'Home', username: req.session.username });
 });
 
 router.get('/login.html', function(req, res, next) {
-  res.render('login', { title: 'login', name:" Christine " });
+  res.render('login', { title: 'Login', username: req.session.username }); 
 });
 
 router.get('/postvideo.html', function(req, res, next) {
-  res.render('postvideo', { title: 'postvideo', name:" Christine " });
+  res.render('postvideo', { title: 'Postvideo', username: req.session.username });
 });
 
 router.get('/index.html', function(req, res, next) {
-  res.render('index', { title: 'home', name:" Christine " });
+  res.render('index', { title: 'Home', username: req.session.username });
 });
 
 router.get('/viewpost.html', function(req, res, next) {
-  res.render('viewpost', { title: 'viewpost', name:" Christine " });
+  res.render('viewpost', { title: 'Viewpost', username: req.session.username });
 });
 
 router.get('/profile.html', function(req, res, next) {
-  res.render("profile", { title: "profile", username: "TODO username", email: "TODO email"});
+  res.render("profile", { title: "Profile", username: req.session.username, email: req.session.email});
 });
 
 router.get('/registration.html', function(req, res, next) {
-  res.render('registration', { title: 'registration', name:" Christine " });
+  res.render('registration', { title: 'Registration', username: req.session.username });
 });
 
 
