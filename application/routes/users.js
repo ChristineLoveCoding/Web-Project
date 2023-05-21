@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const db = require("../helpers/db/database");
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -7,10 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/registration', function(req, res, next) {
-  let body = req.body;
-  console.log(body);
-
-  let username = body.username;
+  let username = req.body.username;
   if (!username.match(/^[a-zA-Z]/g)) {
     res.status(400).send("username must start with a letter");
     return;
@@ -44,7 +42,13 @@ router.post('/registration', function(req, res, next) {
     res.status(400).send("The password doesn't match !");
     return;
   }
-  res.send('hello');
+  db.register(req.body.username, req.body.email, req.body.password, function(error) {
+    if (error) {
+      res.status(500).send(`server errors: ${error}`);
+    } else {
+      res.render("profile", { title: "profile", username: req.body.username, email: req.body.email});
+    }
+  });
 });
 
 module.exports = router;

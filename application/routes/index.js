@@ -23,7 +23,7 @@ router.get('/viewpost.html', function(req, res, next) {
 });
 
 router.get('/profile.html', function(req, res, next) {
-  res.render('profile', { title: 'profile', name:" Christine " });
+  res.render("profile", { title: "profile", username: "TODO username", email: "TODO email"});
 });
 
 router.get('/registration.html', function(req, res, next) {

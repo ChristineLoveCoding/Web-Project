@@ -42,10 +42,10 @@ async function makeUsersTable(connection) {
     CREATE TABLE IF NOT EXISTS CSC317db.users (
       username VARCHAR(64) NOT NULL,
       email VARCHAR(255) NOT NULL,
-      password VARCHAR(32) NOT NULL,
+      password_hash VARCHAR(32) NOT NULL,
       create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       userID INT NOT NULL AUTO_INCREMENT,
-      updateTime DATETIME NOT NULL,
+      updateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       PRIMARY KEY (userID),
       UNIQUE INDEX userID_UNIQUE (userID ASC) VISIBLE,
       UNIQUE INDEX email_UNIQUE (email ASC) VISIBLE)
