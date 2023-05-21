@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.Router();
+var express = require('express'); var router = express.Router();
 const db = require("../helpers/db/database");
 
 /* GET users listing. */
@@ -10,7 +9,7 @@ router.get('/', function(req, res, next) {
 router.post("/login", function (req, res, next) {
   db.login(req.body.username, req.body.password, function(error, user) {
     if (error) {
-      res.status(500).send(`errors: ${error}`);
+      res.render("error",  {message: `Login failed: ${error}`, error: error});
     } else {
       req.session = {
         username: user.username,
@@ -58,7 +57,7 @@ router.post('/registration', function(req, res, next) {
   }
   db.register(req.body.username, req.body.email, req.body.password, function(error) {
     if (error) {
-      res.status(500).send(`errors: ${error}`);
+      res.render("error", {message: `Registeration failed: ${error}`, error: error});
     } else {
       req.session = {
         username: req.body.username,
