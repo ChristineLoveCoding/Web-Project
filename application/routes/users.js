@@ -7,6 +7,17 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
+router.post("/login", function (req, res, next) {
+  console.log(req.body);
+  db.login(req.body.username, req.body.password, function(error, user) {
+    if (error) {
+      res.status(500).send(`errors: ${error}`);
+    } else {
+      res.render("profile", { title: "profile", username: user.username, email: user.email});
+    }
+  });
+});
+
 router.post('/registration', function(req, res, next) {
   let username = req.body.username;
   if (!username.match(/^[a-zA-Z]/g)) {
@@ -44,7 +55,7 @@ router.post('/registration', function(req, res, next) {
   }
   db.register(req.body.username, req.body.email, req.body.password, function(error) {
     if (error) {
-      res.status(500).send(`server errors: ${error}`);
+      res.status(500).send(`errors: ${error}`);
     } else {
       res.render("profile", { title: "profile", username: req.body.username, email: req.body.email});
     }

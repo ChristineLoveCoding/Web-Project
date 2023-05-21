@@ -16,10 +16,26 @@ function run(sql, next) {
     if (err) {
       next(`Error executing ${sql}: ${err}`, null);
     } else {
-      console.log(`Successfully executed ${sql}`, result[0]);
+      console.log(`Successfully executed ${sql}`, results);
       next(null, results);
     }
   });
+}
+
+function login(username, password, next) {
+  run(
+    `
+  SELECT username, email FROM users
+  WHERE username = "${username}" AND password_hash = MD5("${password}");
+  `,
+    (e, results) => {
+      if (results.length == 0) {
+        next("invalid username or password");
+      } else {
+        next(null, results[0]);
+      }
+    }
+  );
 }
 
 function register(username, email, password, next) {
@@ -29,11 +45,12 @@ function register(username, email, password, next) {
     VALUES ("${username}", "${email}", MD5("${password}"))
   `,
     (e) => {
-      next(e);
+      next(e)
     }
   );
 }
 
 module.exports = {
+  login: login,
   register: register,
 };
