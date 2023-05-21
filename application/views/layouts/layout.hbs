@@ -13,11 +13,38 @@
     <header>
         <h1> Bilibili Video Community  </h1>
         <h3>Sign Up today and post your video !</h3>
+        {{#if username}}
+        <h3>Logged in: {{username}}</h3>
+        {{else}}
+        <h3><a href="/login.html">Login</a></h3>
+        {{/if}}
     </header>
+    <div class="content">
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/login.html">Login</a>
+            <a href="/registration.html">Registration</a>
+            <a href="/postvideo.html">Postvideo</a>
+            <a href="/viewpost.html">Viewpost</a>
+            <a href="/profile.html">Profile</a>
+        </nav>
+        <div class="title"> {{title}} </div>
+        {{!-- Automatically add `class="current"` to the active tab. --}}
+        <script>
+            var title = document.title;
+            document.querySelectorAll("nav a").forEach(e => {
+                console.log(e.textContent);
+                if (e.textContent === title) {
+                    e.classList.add("current");
+                }
+            })
+        </script>
 
-    {{{body}}}
-      <footer>
-        <p><a href="mailto:tfeng@sfsu.edu"> @copyrightTingFeng </a> </p>
-    </footer>
+        <br>
+        {{{body}}}
+        <footer>
+            <p><a href="mailto:tfeng@sfsu.edu"> @copyrightTingFeng </a> </p>
+        </footer>
+    </div>
 </body>
 </html>

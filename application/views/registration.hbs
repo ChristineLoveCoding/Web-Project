@@ -1,64 +1,46 @@
-
-    
-   
-
-    <div class="content">
-        <nav>
-            <a href="/index.html">Home</a>
-            <a href="/login.html">Login</a>
-            <a href="/registration.html" class="current">Registration</a>
-            <a href="/postvideo.html">Postvideo</a>
-            <a href="/viewpost.html">Viewpost</a>
-            <a href="/profile.html">Profile</a>
-        </nav>
-    <div class="title"> Registeration Page </div>
-    
-    <br>
-    <br>
-
-    <section>
-        <div id="error"></div>
-        <form action="/users/registration" method="post" >
-               
-            <label for="username">Username:</label>
-            <input required type="text" id="username" name="username" placeholder="Username"><br>
+<section>
+    <div id="error"></div>
+    <form action="/users/registration" method="post" >
             
-            <label for="email">Email:</label>
-            <input required type="email" id="email" name="email" placeholder="Email"><br>
-            
-            <label for="password">Password :</label>
-            <input required type="text" id="password" name="password" placeholder="Password" ><br>
-            
-            <label for="confirm_password">Confirm Password :</label>
-            <input required type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password"><br>
-            
-            <label for="confirm_age">Confirm your age is over 13:</label>
-            <input required type="checkbox" id="confirm_age" name="confirm_age"><br>
-            
-            <label for="accept_tos">Accept <a href="">terms of service</a>:</label>
-            <input required type="checkbox" id="accept_tos" name="accept_tos"><br>
-            
-            <label for="rememberMe">Remember Me for this device</label>
-            <input required type="checkbox" id="rememberMe" name="rememberMe"><br>
-            
-            <input id ="submit" type="submit" value="Submit">
-        </form>
-        <div id="username_validation" class="message">
-            <p id="usr1" class="invalid" >enter a username that begins with a character ([a-zA-Z]).</p>
-            <p id="usr2" class="invalid">enter a username that is 3 or more alphanumeric characters.</p>
-        </div>
-        <div id="password_validation" class="message">
-            <h4>Password must contain the following:</h4>
-            <p id="letter" class="invalid">One of the following <b>special characters:</b>
-                / * - + ! @ # $ ^ & ~ [ ] </p>
-            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
-            <p id="number" class="invalid">A <b>number</b></p>
-            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
-        </div>
-        <div id="confirm_password_validation" class="message">
-            <p id="match_p" class="invalid">enter your password again .</p>
-        </div>
-    </section>
+        <label for="username">Username:</label>
+        <input required type="text" id="username" name="username" placeholder="Username"><br>
+        
+        <label for="email">Email:</label>
+        <input required type="email" id="email" name="email" placeholder="Email"><br>
+        
+        <label for="password">Password :</label>
+        <input required type="text" id="password" name="password" placeholder="Password" ><br>
+        
+        <label for="confirm_password">Confirm Password :</label>
+        <input required type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password"><br>
+        
+        <label for="confirm_age">Confirm your age is over 13:</label>
+        <input required type="checkbox" id="confirm_age" name="confirm_age"><br>
+        
+        <label for="accept_tos">Accept <a href="">terms of service</a>:</label>
+        <input required type="checkbox" id="accept_tos" name="accept_tos"><br>
+        
+        <label for="rememberMe">Remember Me for this device</label>
+        <input required type="checkbox" id="rememberMe" name="rememberMe"><br>
+        
+        <input id ="submit" type="submit" value="Submit">
+    </form>
+    <div id="username_validation" class="message">
+        <p id="usr1" class="invalid" >enter a username that begins with a character ([a-zA-Z]).</p>
+        <p id="usr2" class="invalid">enter a username that is 3 or more alphanumeric characters.</p>
     </div>
-    <script src= "/public/js/validation.js"></script>
+    <div id="password_validation" class="message">
+        <h4>Password must contain the following:</h4>
+        <p id="letter" class="invalid">One of the following <b>special characters:</b>
+            / * - + ! @ # $ ^ & ~ [ ] </p>
+        <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+        <p id="number" class="invalid">A <b>number</b></p>
+        <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+    </div>
+    <div id="confirm_password_validation" class="message">
+        <p id="match_p" class="invalid">enter your password again .</p>
+    </div>
+</section>
+</div>
+<script src= "/public/js/validation.js"></script>
     
