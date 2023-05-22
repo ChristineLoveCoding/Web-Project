@@ -8,6 +8,7 @@ const handlebars = require("express-handlebars");
 const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const postsRouter = require("./routes/posts");
+const videosRouter = require("./routes/videos");
 
 const app = express();
 
@@ -41,6 +42,7 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+app.use("/videos", videosRouter);
 
 
 /**

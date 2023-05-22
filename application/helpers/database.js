@@ -88,11 +88,11 @@ function updateUser(username, aboutme, next) {
 
 // video is the file name. Only video under `${repos_root}/videa` would work.
 // TODO: add thumbnail.
-function createPost(username, title, description, thumbnail, path, mimetype, size, next) {
+function createPost(username, title, description, thumbnail, video, next) {
   run(
     `
-  INSERT INTO posts (author, title, description, thumbnail, path, mimetype, size)
-    VALUES ("${username}", "${title}", "${description}", "${thumbnail}", "${path}", "${mimetype}", "${size}")
+  INSERT INTO posts (author, title, description, thumbnail, video)
+    VALUES ("${username}", "${title}", "${description}", "${thumbnail}", "${video}")
   `,
     (e) => {
       next(e)
@@ -135,7 +135,7 @@ function listPostsBy(author, next) {
 function getPost(id, next) {
   run(
     `
-  SELECT id, author, title, description, thumbnail, path, mimetype, size
+  SELECT id, author, title, description, thumbnail, video
   FROM posts
   WHERE id = "${id}"
   `,

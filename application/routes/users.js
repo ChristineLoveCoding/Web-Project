@@ -1,4 +1,5 @@
-var express = require('express'); var router = express.Router();
+var express = require('express');
+var router = express.Router();
 const db = require("../helpers/database");
 
 router.post("/:username/update", function (req, res, next) {

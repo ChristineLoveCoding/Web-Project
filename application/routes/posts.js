@@ -7,7 +7,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
   destination: function(req, file, cb) {
-    cb(null, "public/videos/uploads");
+    cb(null, "public/videos/");
   },
   filename: function(req, file, cb) {
     var fileExt = file.mimetype.split("/")[1];
@@ -20,7 +20,7 @@ const upload = multer({ storage: storage });
 
 function makeThunmbNail(file) {
   const filename = path.basename(file);
-  const thumbnail = `public/images/thumbnails/${filename}.png`;
+  const thumbnail = `public/images/${filename}.png`;
   const cmd = `${ffmpeg} -ss 00:00:01 -i ${file} -y -s 200x200 -vframes 1 -f image2 ${thumbnail}`;
   console.log(cmd);
   exec(cmd);
@@ -34,8 +34,7 @@ router.post("/upload", upload.single('video'), function (req, res, next) {
   } else {
     // exec is sync already. Don't see a point of extracting it into a middleware.
     const thumbnail = makeThunmbNail(req.file.path);
-    db.createPost(req.session.username, req.body.title, req.body.description, 
-      thumbnail, req.file.path, req.file.mimetype, req.file.size, function(error) {
+    db.createPost(req.session.username, req.body.title, req.body.description, thumbnail, path.basename(req.file.path), function(error) {
       if (error) {
         res.render("error",  {message: `Create post failed: ${error}`, error: error});
       } else {
