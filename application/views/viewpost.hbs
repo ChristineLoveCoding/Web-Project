@@ -10,9 +10,16 @@
         <p> Video Author: {{post.author}} </p>
         <p> Video Created At: {{post.create_time}} </p>
         <ul>
-            <li>Fred: Ur school vlogs are actually cool. We love to see more!</li>
-            <li>Cindy: Love it.</li>
-            <li>Annie: She actually makes me wanna go to school.</li>
+            {{#each comments}}
+                <li>{{this.author}}: {{this.text}}</li>
+            {{/each}}
+            <li>
+                <form action="/posts/{{post.id}}/comments" method="post">
+                    <label for="comment">Comment:</label>
+                    <input type="text" id="comment" name="comment"><br><br>
+                    <input type="submit" value="Comment">
+                </form>
+            </li>
         </ul>
     </div>
 </section>

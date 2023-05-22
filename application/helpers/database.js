@@ -1,4 +1,5 @@
 "use strict";
+const { text } = require("express");
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
@@ -86,15 +87,44 @@ function getPost(id, next) {
   FROM posts
   WHERE id = "${id}"
   `,
-    (e, results) => {
-      if (results.length == 0) {
+    (e, postResults) => {
+      if (e) {
+        next(e);
+      } else if (postResults.length == 0) {
         next(`no post found with the id=${id}`);
       } else {
-        next(null, results[0]);
+        run(
+          `
+          SELECT author, text, create_time
+          FROM comments
+          WHERE post_id = "${id}"
+          ORDER BY create_time ASC
+          `,
+          (e, commentResults) => {
+            if (e) {
+              next(e);
+            } else {
+              next(null, postResults[0], commentResults);
+            }
+          }
+        );
       }
     }
   );
 }
+
+function makeComment(postId, author, text, next) {
+  run(
+    `
+  INSERT INTO comments (post_id, author, text)
+    VALUES ("${postId}", "${author}", "${text}")
+  `,
+    (e) => {
+      next(e)
+    }
+  );
+}
+
 
 module.exports = {
   login: login,
@@ -102,4 +132,5 @@ module.exports = {
   createPost: createPost,
   listPost: listPost,
   getPost: getPost,
+  makeComment: makeComment,
 };
