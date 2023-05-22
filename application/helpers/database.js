@@ -70,7 +70,7 @@ function createPost(username, title, description, video, thumbnail, next) {
 function listPost(next) {
   run(
     `
-  SELECT author, title, description, video, thumbnail
+  SELECT id, author, title, description, video, thumbnail
   FROM posts
   `,
     (e, results) => {
@@ -79,15 +79,21 @@ function listPost(next) {
   );
 }
 
-/* GET home page. Reused in 3 placed. */
-const homeHandler = function(req, res, next) {
-  listPost(function(error, results) {
-    if (error) {
-      res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
-    } else {
-      res.render('index', { title: 'Home', username: req.session.username, posts: results });
+function getPost(id, next) {
+  run(
+    `
+  SELECT id, author, title, description, video, thumbnail, create_time, update_time
+  FROM posts
+  WHERE id = "${id}"
+  `,
+    (e, results) => {
+      if (results.length == 0) {
+        next(`no post found with the id=${id}`);
+      } else {
+        next(null, results[0]);
+      }
     }
-  });
+  );
 }
 
 module.exports = {
@@ -95,5 +101,5 @@ module.exports = {
   register: register,
   createPost: createPost,
   listPost: listPost,
-  homeHandler: homeHandler,
+  getPost: getPost,
 };
