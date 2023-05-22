@@ -6,7 +6,7 @@ const connection = mysql.createConnection({
   //TODO make sure to change to the user you want to use
   user: "root", //Your DB username
   //TODO make sure to change to the correct password for your user.
-  password: "christine", //Your DB password
+  // password: "christine", //Your DB password
 });
 
 connection.query("USE CSC317db"); // set new DB to the current DB
