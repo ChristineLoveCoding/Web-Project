@@ -1,6 +1,17 @@
 var express = require('express'); var router = express.Router();
 const db = require("../helpers/database");
 
+router.post("/:username/update", function (req, res, next) {
+  console.log(req.body);
+  db.updateUser(req.params.username, req.body.aboutme, function(error, user) {
+    if (error) {
+      res.render("error",  {message: `Update profile failed: ${error}`, error: error});
+    } else {
+      res.redirect("/profile.html");
+    }
+  });
+});
+
 router.post("/login", function (req, res, next) {
   db.login(req.body.username, req.body.password, function(error, user) {
     if (error) {
@@ -8,9 +19,8 @@ router.post("/login", function (req, res, next) {
     } else {
       req.session = {
         username: user.username,
-        email: user.email
       };
-      res.render("profile", { title: "profile", username: user.username, email: user.email});
+      res.redirect('/profile.html');
     }
   });
 });
@@ -62,7 +72,6 @@ router.post('/registration', function(req, res, next) {
     } else {
       req.session = {
         username: req.body.username,
-        email: req.body.email
       }
       res.render("profile", { title: "profile", username: req.body.username, email: req.body.email});
     }

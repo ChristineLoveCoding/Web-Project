@@ -41,6 +41,7 @@ async function makeUsersTable(connection) {
     `
     CREATE TABLE IF NOT EXISTS users (
       username VARCHAR(64) NOT NULL,
+      aboutme TEXT,
       create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       email VARCHAR(255) NOT NULL,

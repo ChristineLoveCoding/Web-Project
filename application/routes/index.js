@@ -35,14 +35,20 @@ router.get('/viewpost.html', function(req, res, next) {
 });
 
 router.get('/profile.html', function(req, res, next) {
-  if (!req.session) {
-    res.redirect("/login.html");
+  if (!req.session || !req.session.username) {
+    res.render("please_login");
   } else {
     db.listPostsBy(req.session.username, function(error, results) {
       if (error) {
         res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
       } else {
-        res.render("profile", { title: "Profile", username: req.session.username, email: req.session.email, posts: results});
+        db.getUser(req.session.username, function(error, user) {
+          if (error) {
+            res.render("error",  {message: `Cannot fetch user details: ${error}`, error: error});
+          } else {
+            res.render("profile", { title: "Profile", username: req.session.username, user: user});
+          }
+        })
       }
     });
   }

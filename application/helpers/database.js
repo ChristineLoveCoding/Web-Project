@@ -31,7 +31,9 @@ function login(username, password, next) {
   WHERE username = "${username}" AND password_hash = MD5("${password}");
   `,
     (e, results) => {
-      if (results.length == 0) {
+      if (e) {
+        next(e);
+      } else if (results.length == 0) {
         next("invalid username or password");
       } else {
         next(null, results[0]);
@@ -45,6 +47,38 @@ function register(username, email, password, next) {
     `
   INSERT INTO users (username, email, password_hash)
     VALUES ("${username}", "${email}", MD5("${password}"))
+  `,
+    (e) => {
+      next(e)
+    }
+  );
+}
+
+function getUser(username, next) {
+  run(
+    `
+    SELECT username, email, aboutme
+    FROM users
+    WHERE username = "${username}"
+    `,
+    (e, result) => {
+      if (e) {
+        next(e);
+      } else if (result.length == 0) {
+        next(`no user found with the username=${username}`);
+      } else {
+        next(null, result[0]);
+      }
+    }
+  );
+}
+
+function updateUser(username, aboutme, next) {
+  run(
+    `
+  UPDATE users
+    SET aboutme = "${aboutme}"
+    WHERE username = "${username}"
   `,
     (e) => {
       next(e)
@@ -159,6 +193,8 @@ function makeComment(postId, author, text, next) {
 module.exports = {
   login: login,
   register: register,
+  getUser: getUser,
+  updateUser: updateUser,
   createPost: createPost,
   getPost: getPost,
   deletePost: deletePost,
