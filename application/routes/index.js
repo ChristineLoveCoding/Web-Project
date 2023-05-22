@@ -1,9 +1,20 @@
 var express = require('express');
 var router = express.Router();
-const handlers = require("../helpers/handlers");
+const db = require("../helpers/database");
 
-router.get('/', handlers.homeHandler);
-router.get('/index.html', handlers.homeHandler);
+router.get('/index.html', function(req, res, next) {
+  res.redirect('/');
+});
+
+router.get('/', function(req, res, next) {
+  db.listPosts(req.query.q, function(error, results) {
+    if (error) {
+      res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
+    } else {
+      res.render('index', { title: 'Home', username: req.session.username, posts: results });
+    }
+  });
+});
 
 router.get('/login.html', function(req, res, next) {
   res.render('login', { title: 'Login', username: req.session.username }); 
@@ -24,7 +35,17 @@ router.get('/viewpost.html', function(req, res, next) {
 });
 
 router.get('/profile.html', function(req, res, next) {
-  res.render("profile", { title: "Profile", username: req.session.username, email: req.session.email});
+  if (!req.session) {
+    res.redirect("/login.html");
+  } else {
+    db.listPostsBy(req.session.username, function(error, results) {
+      if (error) {
+        res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
+      } else {
+        res.render("profile", { title: "Profile", username: req.session.username, email: req.session.email, posts: results});
+      }
+    });
+  }
 });
 
 router.get('/registration.html', function(req, res, next) {
