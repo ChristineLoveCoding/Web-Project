@@ -98,8 +98,8 @@ async function makeCommentsTable(connection) {
       id INT NOT NULL AUTO_INCREMENT,
       author VARCHAR(64) NOT NULL,
       post_id INT NOT NULL,
-      create_time DATETIME NOT NULL,
-      update_time DATETIME NOT NULL,
+      create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       text VARCHAR(45) NOT NULL,
       PRIMARY KEY (id),
       CONSTRAINT fk_author

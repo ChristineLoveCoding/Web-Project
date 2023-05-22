@@ -18,16 +18,31 @@ router.post("/", function (req, res, next) {
   }
 });
 
-router.get("/:id", function (req, res, next) {
-  console.log(req.params.id);
-  db.getPost(req.params.id, function(error, post) {
+const viewPost = function (req, res, next) {
+  db.getPost(req.params.post_id, function(error, post, comments) {
     if (error) {
       res.render("error",  {message: `View post failed: ${error}`, error: error});
     } else {
-
-      res.render('viewpost', { title: 'Viewpost', username: req.session.username, post: post });
+      res.render('viewpost', { title: 'Viewpost', username: req.session.username, post: post, comments: comments });
     }
   });
+};
+
+router.get("/:post_id", viewPost);
+
+router.post("/:post_id/comments", function (req, res, next) {
+  if (!req.session) {
+    res.render("error",  {message: `Please login first`});
+  } else {
+    console.log(req.body);
+    db.makeComment(req.params.post_id, req.session.username, req.body.comment, function(error, post) {
+      if (error) {
+        res.render("error",  {message: `Post comments failed: ${error}`, error: error});
+      } else {
+        viewPost(req, res, next);
+      }
+    });
+  }
 });
 
 module.exports = router;
