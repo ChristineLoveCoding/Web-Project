@@ -3,7 +3,12 @@
     <br>
 </section>
 
-<h3 id="line3">There are <span id="photo_count" > 0 </span>   photos dispalyed.</h3>
+<form action="/" method="get">
+    <label for="q">Search:</label>
+    <input type="text" id="query" name="q">
+    <input type="submit" value="Search">
+</form>
+
 <div id="photo_data">
 {{#each posts}}
     <a href="/posts/{{this.id}}">

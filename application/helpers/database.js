@@ -68,11 +68,17 @@ function createPost(username, title, description, video, thumbnail, next) {
 
 // video is the file name. Only video under `${repos_root}/videa` would work.
 // TODO: add thumbnail.
-function listPost(next) {
+function listPosts(query, next) {
+  console.log(query);
+  let where = ""
+  if (query && query.length > 0) {
+    where = `WHERE title LIKE "%${query}%" OR title LIKE "%${query}%" `;
+  }
   run(
     `
   SELECT id, author, title, description, video, thumbnail
   FROM posts
+  ${where}
   `,
     (e, results) => {
       next(e, results);
@@ -108,6 +114,7 @@ function getPost(id, next) {
             }
           }
         );
+        next(null, results[0]);
       }
     }
   );
@@ -130,7 +137,7 @@ module.exports = {
   login: login,
   register: register,
   createPost: createPost,
-  listPost: listPost,
+  listPosts: listPosts,
   getPost: getPost,
   makeComment: makeComment,
 };
