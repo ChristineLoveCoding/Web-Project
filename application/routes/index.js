@@ -24,21 +24,11 @@ router.get('/postvideo.html', function(req, res, next) {
   res.render('postvideo', { title: 'Postvideo', username: req.session.username });
 });
 
-router.get('/viewpost.html', function(req, res, next) {
-  const dummyPost = {
-    author: "Christine",
-    create_time: "2023 Jan 1 ",
-    title: "Christine's school life vlog 1",
-    video: "test.mp4",
-  }
-  res.render('viewpost', { title: 'Viewpost', username: req.session.username, post: dummyPost});
-});
-
 router.get('/profile.html', function(req, res, next) {
   if (!req.session || !req.session.username) {
     res.render("please_login");
   } else {
-    db.listPostsBy(req.session.username, function(error, results) {
+    db.listPostsBy(req.session.username, function(error, posts) {
       if (error) {
         res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
       } else {
@@ -46,7 +36,7 @@ router.get('/profile.html', function(req, res, next) {
           if (error) {
             res.render("error",  {message: `Cannot fetch user details: ${error}`, error: error});
           } else {
-            res.render("profile", { title: "Profile", username: req.session.username, user: user});
+            res.render("profile", { title: "Profile", username: req.session.username, user: user, posts: posts});
           }
         })
       }

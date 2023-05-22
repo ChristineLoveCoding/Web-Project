@@ -18,13 +18,15 @@
     </form>
     <div id="photo_data">
     {{#each posts}}
-        <div class="photo_wrapper" >
-            <img src="{{this.thumbnail}}" width="100px" height="100px">
-            <span>{{this.title}}</span>
-            <form action="/posts/{{this.id}}/delete" method="post">
-              <input type="submit" value="Delete">
-            </form>
-        </div>
+        <a href="/posts/{{this.id}}">
+            <div class="photo_wrapper" >
+                <img src="{{this.thumbnail}}" width="100px" height="100px">
+                <span>{{this.title}}</span>
+                <form action="/posts/{{this.id}}/delete" method="post">
+                <input type="submit" value="Delete">
+                </form>
+            </div>
+        </a>
     {{/each}}
     </div>
 </section>
