@@ -20,6 +20,12 @@ router.post("/login", function (req, res, next) {
   });
 });
 
+router.post("/logout", function (req, res, next) {
+  console.log("user.signout()");
+  req.session = null;
+  res.render('login', { title: 'Login' }); 
+});
+
 router.post('/registration', function(req, res, next) {
   let username = req.body.username;
   if (!username.match(/^[a-zA-Z]/g)) {

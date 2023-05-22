@@ -11,13 +11,16 @@
 
 <body>
     <header>
-        <h1> Bilibili Video Community  </h1>
-        <h3>Sign Up today and post your video !</h3>
-        {{#if username}}
-        <h3>Logged in: {{username}}</h3>
-        {{else}}
-        <h3><a href="/login.html">Login</a></h3>
-        {{/if}}
+      <h1> Bilibili Video Community  </h1>
+      <h3>Sign Up today and post your video !</h3>
+      {{#if username}}
+      <h3>Logged in: {{username}}</h3>
+      <form action="/users/logout" method="post">
+        <input type="submit" value="Logout"></input>
+      </form>
+      {{else}}
+      <h3><a href="/login.html">Login</a></h3>
+      {{/if}}
     </header>
     <div class="content">
         <nav>
@@ -29,16 +32,6 @@
             <a href="/profile.html">Profile</a>
         </nav>
         <div class="title"> {{title}} </div>
-        {{!-- Automatically add `class="current"` to the active tab. --}}
-        <script>
-            var title = document.title;
-            document.querySelectorAll("nav a").forEach(e => {
-                console.log(e.textContent);
-                if (e.textContent === title) {
-                    e.classList.add("current");
-                }
-            })
-        </script>
 
         <br>
         {{{body}}}
@@ -46,5 +39,6 @@
             <p><a href="mailto:tfeng@sfsu.edu"> @copyrightTingFeng </a> </p>
         </footer>
     </div>
+    <script src= "/public/js/layout.js"></script>
 </body>
 </html>
