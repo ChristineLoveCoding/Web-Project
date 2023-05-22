@@ -1,10 +1,5 @@
 var express = require('express'); var router = express.Router();
-const db = require("../helpers/db/database");
-
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const db = require("../helpers/database");
 
 router.post("/login", function (req, res, next) {
   db.login(req.body.username, req.body.password, function(error, user) {

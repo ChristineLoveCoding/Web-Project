@@ -1,24 +1,55 @@
 var express = require('express'); var router = express.Router();
-const db = require("../helpers/db/database");
+const db = require("../helpers/database");
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
+/* GET posts listing. */
 router.post("/", function (req, res, next) {
-  console.log(req.body);
   if (!req.session) {
     res.render("error",  {message: `Please login first`});
   } else {
-    db.createPost(req.session.username, req.body.title, req.body.description, req.body.video, function(error, user) {
+    // TODO: pass in real thumbnail.
+    db.createPost(req.session.username, req.body.title, req.body.description, req.body.video, "/public/profile.png", function(error) {
       if (error) {
-        res.render("error",  {message: `Login failed: ${error}`, error: error});
+        res.render("error",  {message: `Create post failed: ${error}`, error: error});
       } else {
-        req.session = {
-          username: user.username,
-          email: user.email
-        };
-        res.render("profile", { title: "profile", username: user.username, email: user.email});
+        res.redirect("/profile.html");
+      }
+    });
+  }
+});
+
+router.post("/:post_id/delete", function (req, res, next) {
+  if (!req.session) {
+    res.render("error",  {message: `Please login first`});
+  } else {
+    db.deletePost(req.session.username, req.params.post_id, function(error) {
+      if (error) {
+        res.render("error",  {message: `Delete post failed: ${error}`, error: error});
+      } else {
+        res.redirect("/profile.html");
+      }
+    });
+  }
+});
+
+router.get("/:post_id", function (req, res, next) {
+  db.getPost(req.params.post_id, function(error, post, comments) {
+    if (error) {
+      res.render("error",  {message: `View post failed: ${error}`, error: error});
+    } else {
+      res.render('viewpost', { title: 'Viewpost', username: req.session.username, post: post, comments: comments });
+    }
+  });
+});
+
+router.post("/:post_id/comments", function (req, res, next) {
+  if (!req.session) {
+    res.render("error",  {message: `Please login first`});
+  } else {
+    db.makeComment(req.params.post_id, req.session.username, req.body.comment, function(error) {
+      if (error) {
+        res.render("error",  {message: `Post comments failed: ${error}`, error: error});
+      } else {
+        res.redirect(`/posts/${req.params.post_id}`);
       }
     });
   }
