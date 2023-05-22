@@ -14,11 +14,7 @@ router.post("/", function (req, res, next) {
       if (error) {
         res.render("error",  {message: `Login failed: ${error}`, error: error});
       } else {
-        req.session = {
-          username: user.username,
-          email: user.email
-        };
-        res.render("profile", { title: "profile", username: user.username, email: user.email});
+        res.render("index", {title: "Home", username: req.session.username});
       }
     });
   }
