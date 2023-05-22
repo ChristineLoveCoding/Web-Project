@@ -18,4 +18,15 @@
         <li>School Vlog 2</li>
         <li>School Vlog 3</li>
     </ol>
+
+    <div id="photo_data">
+    {{#each posts}}
+        <a href="/posts/{{this.id}}">
+            <div class="photo_wrapper" >
+                <img src="{{this.thumbnail}}" width="100px" height="100px">
+                <span>{{this.title}}</span>
+            </div>
+        </a>
+    {{/each}}
+    </div>
 </section>
