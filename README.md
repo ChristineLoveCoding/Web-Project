@@ -1,6 +1,8 @@
 # CSC 317 Course Project
 
-## Purpose
+This term project is a mini video website, which allow the users to log in, log out, upload videos, and make comments about the video.
+
+# Purpose
 
 The purpose of this repository is to store all the code for your web application. This also includes the history of all commits made and who made them. Only code submitted on the master branch will be graded.
 
@@ -19,9 +21,9 @@ Please follow the instructions below and fill in the information requested when 
 # Build/Run Instructions
 
 ## Build Instructions
-1. npm install
+1. 
 2. 
 
 ## Run Instructions
-1. npm start
+1. 
 2. 
