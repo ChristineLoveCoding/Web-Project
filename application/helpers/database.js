@@ -131,6 +131,18 @@ function getPost(id, next) {
   );
 }
 
+function deletePost(username, postId, next) {
+  run(
+    `
+    DELETE FROM posts
+    WHERE id = "${postId}" AND author = "${username}"
+  `,
+    (e) => {
+      next(e)
+    }
+  );
+}
+
 function makeComment(postId, author, text, next) {
   run(
     `
@@ -149,6 +161,7 @@ module.exports = {
   register: register,
   createPost: createPost,
   getPost: getPost,
+  deletePost: deletePost,
   listPosts: listPosts,
   listPostsBy: listPostsBy,
   makeComment: makeComment,
