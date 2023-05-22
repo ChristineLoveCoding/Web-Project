@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
-const db = require("../helpers/db/database");
+const handlers = require("../helpers/handlers");
 
-router.get('/', db.homeHandler);
-router.get('/index.html', db.homeHandler);
+router.get('/', handlers.homeHandler);
+router.get('/index.html', handlers.homeHandler);
 
 router.get('/login.html', function(req, res, next) {
   res.render('login', { title: 'Login', username: req.session.username }); 
@@ -13,9 +13,14 @@ router.get('/postvideo.html', function(req, res, next) {
   res.render('postvideo', { title: 'Postvideo', username: req.session.username });
 });
 
-
 router.get('/viewpost.html', function(req, res, next) {
-  res.render('viewpost', { title: 'Viewpost', username: req.session.username });
+  const dummyPost = {
+    author: "Christine",
+    create_time: "2023 Jan 1 ",
+    title: "Christine's school life vlog 1",
+    video: "test.mp4",
+  }
+  res.render('viewpost', { title: 'Viewpost', username: req.session.username, post: dummyPost});
 });
 
 router.get('/profile.html', function(req, res, next) {
