@@ -14,7 +14,7 @@ connection.query("USE CSC317db"); // set new DB to the current DB
 function run(sql, next) {
   const result = connection.query(sql, function (err, results, fields) {
     if (err) {
-      console.error(`Successfully executed ${sql}`, results);
+      console.error(`Failed to executed ${sql}`, err);
       next(`Error executing ${sql}: ${err}`, null);
     } else {
       console.log(`Successfully executed ${sql}`, results);
@@ -52,11 +52,12 @@ function register(username, email, password, next) {
 }
 
 // video is the file name. Only video under `${repos_root}/videa` would work.
+// TODO: add thumbnail.
 function createPost(username, title, description, video, next) {
   run(
     `
-  INSERT INTO posts (username, title, description, video)
-    VALUES ("${username}", "${title}", "${description}", "${video}"))
+  INSERT INTO posts (author, title, description, video)
+    VALUES ("${username}", "${title}", "${description}", "${video}")
   `,
     (e) => {
       next(e)
