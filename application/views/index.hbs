@@ -6,5 +6,12 @@
 </section>
 
 <h3 id="line3">There are <span id="photo_count" > 0 </span>   photos dispalyed.</h3>
-<div id="photo_data"></div>
-<script src= "/public/js/index.js"></script>
+<div id="photo_data">
+{{#each posts}}
+<div>
+    <img src="{{this.thumbnail}}"  width="100px" height="100px">
+    <span>{{this.title}}</span>
+</div>
+{{/each}}
+</div>
+

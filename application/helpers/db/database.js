@@ -53,11 +53,11 @@ function register(username, email, password, next) {
 
 // video is the file name. Only video under `${repos_root}/videa` would work.
 // TODO: add thumbnail.
-function createPost(username, title, description, video, next) {
+function createPost(username, title, description, video, thumbnail, next) {
   run(
     `
-  INSERT INTO posts (author, title, description, video)
-    VALUES ("${username}", "${title}", "${description}", "${video}")
+  INSERT INTO posts (author, title, description, video, thumbnail)
+    VALUES ("${username}", "${title}", "${description}", "${video}", "${thumbnail}")
   `,
     (e) => {
       next(e)
@@ -65,8 +65,35 @@ function createPost(username, title, description, video, next) {
   );
 }
 
+// video is the file name. Only video under `${repos_root}/videa` would work.
+// TODO: add thumbnail.
+function listPost(next) {
+  run(
+    `
+  SELECT author, title, description, video, thumbnail
+  FROM posts
+  `,
+    (e, results) => {
+      next(e, results);
+    }
+  );
+}
+
+/* GET home page. Reused in 3 placed. */
+const homeHandler = function(req, res, next) {
+  listPost(function(error, results) {
+    if (error) {
+      res.render("error",  {message: `Cannot fetch posts: ${error}`, error: error});
+    } else {
+      res.render('index', { title: 'Home', username: req.session.username, posts: results });
+    }
+  });
+}
+
 module.exports = {
   login: login,
   register: register,
   createPost: createPost,
+  listPost: listPost,
+  homeHandler: homeHandler,
 };
