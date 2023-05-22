@@ -17,6 +17,20 @@ router.post("/", function (req, res, next) {
   }
 });
 
+router.post("/:post_id/delete", function (req, res, next) {
+  if (!req.session) {
+    res.render("error",  {message: `Please login first`});
+  } else {
+    db.deletePost(req.session.username, req.params.post_id, function(error) {
+      if (error) {
+        res.render("error",  {message: `Delete post failed: ${error}`, error: error});
+      } else {
+        res.redirect("/profile.html");
+      }
+    });
+  }
+});
+
 router.get("/:post_id", function (req, res, next) {
   db.getPost(req.params.post_id, function(error, post, comments) {
     if (error) {
