@@ -1,13 +1,41 @@
 var express = require('express'); var router = express.Router();
+const multer = require('multer');
+const ffmpeg = require('ffmpeg-static');
+const exec = require('child_process').exec;
 const db = require("../helpers/database");
+const path = require('path');
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/videos/uploads");
+  },
+  filename: function(req, file, cb) {
+    var fileExt = file.mimetype.split("/")[1];
+    const suffix = Date.now() + "-" + Math.round(Math.random()*1e9);
+    cb(null, `${file.fieldname}-${suffix}.${fileExt}`);
+  },
+})
+
+const upload = multer({ storage: storage });
+
+function makeThunmbNail(file) {
+  const filename = path.basename(file);
+  const thumbnail = `public/images/thumbnails/${filename}.png`;
+  const cmd = `${ffmpeg} -ss 00:00:01 -i ${file} -y -s 200x200 -vframes 1 -f image2 ${thumbnail}`;
+  console.log(cmd);
+  exec(cmd);
+  return thumbnail;
+}
 
 /* GET posts listing. */
-router.post("/", function (req, res, next) {
+router.post("/upload", upload.single('video'), function (req, res, next) {
   if (!req.session) {
     res.render("error",  {message: `Please login first`});
   } else {
-    // TODO: pass in real thumbnail.
-    db.createPost(req.session.username, req.body.title, req.body.description, req.body.video, "/public/profile.png", function(error) {
+    // exec is sync already. Don't see a point of extracting it into a middleware.
+    const thumbnail = makeThunmbNail(req.file.path);
+    db.createPost(req.session.username, req.body.title, req.body.description, 
+      thumbnail, req.file.path, req.file.mimetype, req.file.size, function(error) {
       if (error) {
         res.render("error",  {message: `Create post failed: ${error}`, error: error});
       } else {

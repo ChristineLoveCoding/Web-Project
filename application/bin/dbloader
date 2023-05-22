@@ -71,8 +71,10 @@ async function makePostsTable(connection) {
       update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       title VARCHAR(256) NOT NULL,
       description MEDIUMTEXT NOT NULL,
-      video VARCHAR(4096) NOT NULL,
       thumbnail VARCHAR(4096) NOT NULL,
+      path text NOT NULL,
+      mimetype VARCHAR(100),
+      size INT,
       PRIMARY KEY (id),
       INDEX fk_postAuthor_idx (author ASC) VISIBLE,
       CONSTRAINT fk_postAuthor
