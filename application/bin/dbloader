@@ -39,15 +39,13 @@ async function makeUsersTable(connection) {
   const [result, _] = await connection.query(
     // Users Table SQL Goes here
     `
-    CREATE TABLE IF NOT EXISTS CSC317db.users (
+    CREATE TABLE IF NOT EXISTS users (
       username VARCHAR(64) NOT NULL,
+      create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
       email VARCHAR(255) NOT NULL,
       password_hash VARCHAR(32) NOT NULL,
-      create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      userID INT NOT NULL AUTO_INCREMENT,
-      updateTime DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (userID),
-      UNIQUE INDEX userID_UNIQUE (userID ASC) VISIBLE,
+      PRIMARY KEY (username),
       UNIQUE INDEX email_UNIQUE (email ASC) VISIBLE)
   
       ENGINE = InnoDB;
@@ -65,24 +63,22 @@ async function makeUsersTable(connection) {
 async function makePostsTable(connection) {
   const [result, _] = await connection.query(
     // Posts Table SQL Goes here
-    `CREATE TABLE IF NOT EXISTS CSC317db.posts (
-      userID INT NOT NULL AUTO_INCREMENT,
-      Title VARCHAR(256) NOT NULL,
+    `CREATE TABLE IF NOT EXISTS posts (
+      id INT NOT NULL AUTO_INCREMENT,
+      author VARCHAR(64) NOT NULL,
+      create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      update_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+      title VARCHAR(256) NOT NULL,
       description MEDIUMTEXT NOT NULL,
       video VARCHAR(4096) NOT NULL,
-      create_Time DATETIME NOT NULL,
-      updateTime VARCHAR(45) NOT NULL,
       thumbnail VARCHAR(4096) NOT NULL,
-      username VARCHAR(45) NOT NULL,
-      fk_userID INT NOT NULL,
-      PRIMARY KEY (userID),
-      UNIQUE INDEX ID_UNIQUE (userID ASC) VISIBLE,
-      INDEX fk_postAuthor_idx (fk_userID ASC) VISIBLE,
+      PRIMARY KEY (id),
+      INDEX fk_postAuthor_idx (author ASC) VISIBLE,
       CONSTRAINT fk_postAuthor
-        FOREIGN KEY (fk_userID)
-        REFERENCES CSC317db.users (userID)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+        FOREIGN KEY (author)
+        REFERENCES users (username)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE)
     ENGINE = InnoDB;
     `
   );
@@ -98,27 +94,24 @@ async function makeCommentsTable(connection) {
   const [result, _] = await connection.query(
     // Comments Table SQL Goes here
     `
-    CREATE TABLE IF NOT EXISTS CSC317db.comments (
-      userID INT NOT NULL AUTO_INCREMENT,
-      creat_time DATETIME NOT NULL,
+    CREATE TABLE IF NOT EXISTS comments (
+      id INT NOT NULL AUTO_INCREMENT,
+      author VARCHAR(64) NOT NULL,
+      post_id INT NOT NULL,
+      create_time DATETIME NOT NULL,
+      update_time DATETIME NOT NULL,
       text VARCHAR(45) NOT NULL,
-      fk_authorID INT NOT NULL,
-      updateTime DATETIME NOT NULL,
-      fk_postID INT NOT NULL,
-      PRIMARY KEY (userID),
-      UNIQUE INDEX userID_UNIQUE (userID ASC) VISIBLE,
-      INDEX fk_postID_idx (fk_postID ASC) VISIBLE,
-      INDEX fk_authorID_idx (fk_authorID ASC) VISIBLE,
-      CONSTRAINT fk_authorID
-        FOREIGN KEY (fk_authorID)
-        REFERENCES CSC317db.users (userID)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION,
-      CONSTRAINT fk_postID
-        FOREIGN KEY (fk_postID)
-        REFERENCES CSC317db.posts (userID)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION)
+      PRIMARY KEY (id),
+      CONSTRAINT fk_author
+        FOREIGN KEY (author)
+        REFERENCES users (username)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+      CONSTRAINT fk_post_id
+        FOREIGN KEY (post_id)
+        REFERENCES posts (id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE)
     ENGINE = InnoDB; 
     `
   );
