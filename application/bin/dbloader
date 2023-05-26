@@ -40,6 +40,7 @@ async function makeUsersTable(connection) {
     // Users Table SQL Goes here
     `
     CREATE TABLE IF NOT EXISTS users (
+      profile_image VARCHAR(4096) NOT NULL,
       username VARCHAR(64) NOT NULL,
       aboutme TEXT,
       create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

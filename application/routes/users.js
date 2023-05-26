@@ -1,10 +1,35 @@
 var express = require('express');
 var router = express.Router();
+const multer = require('multer');
 const db = require("../helpers/database");
 
-router.post("/:username/update", function (req, res, next) {
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, "public/images/");
+  },
+  filename: function(req, file, cb) {
+    var fileExt = file.mimetype.split("/")[1];
+    const suffix = Date.now() + "-" + Math.round(Math.random()*1e9);
+    cb(null, `${file.fieldname}-${suffix}.${fileExt}`);
+  },
+})
+
+const upload = multer({ storage: storage });
+
+router.post("/:username/update_image", upload.single('profile_image'), function (req, res, next) {
+  console.log(req.file);
   console.log(req.body);
-  db.updateUser(req.params.username, req.body.aboutme, function(error, user) {
+  db.updateUser(req.params.username, null, req.file.path, function(error, user) {
+    if (error) {
+      res.render("error",  {message: `Update profile failed: ${error}`, error: error});
+    } else {
+      res.redirect("/profile.html");
+    }
+  });
+});
+
+router.post("/:username/update", function (req, res, next) {
+  db.updateUser(req.params.username, req.body.aboutme, null, function(error, user) {
     if (error) {
       res.render("error",  {message: `Update profile failed: ${error}`, error: error});
     } else {
@@ -67,14 +92,14 @@ router.post('/registration', function(req, res, next) {
     res.status(400).send("The password doesn't match !");
     return;
   }
-  db.register(req.body.username, req.body.email, req.body.password, function(error) {
+  db.register(req.body.username, req.body.email, req.body.password, '/public/default_profile_image.jpeg', function(error) {
     if (error) {
       res.render("error", {message: `Registeration failed: ${error}`, error: error});
     } else {
       req.session = {
         username: req.body.username,
       }
-      res.render("profile", { title: "profile", username: req.body.username, email: req.body.email});
+      res.redirect('/profile.html');
     }
   });
 });

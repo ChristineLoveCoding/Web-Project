@@ -1,13 +1,18 @@
 <section>
     <p> </p>
     <div class="horizontal">
-        <img alt="me" src="/public/profile.png" width="100" height="100">
+        <img alt="me" src="{{user.profile_image}}" width="100" height="100">
         <div>
             <br>
             <p> username: {{user.username}} </p>
             <p> email: {{user.email}} </p>
+            <form action="/users/{{this.username}}/update_image" method="post" enctype="multipart/form-data">
+                <input type="file" id="profile_image" name="profile_image" accept="image/*"><br>
+                <input type="submit" value="Change Image">
+            </form>
         </div>
     </div>
+    
     <h3>About Me</h3>
     <p>
         {{user.aboutme}}

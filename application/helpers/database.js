@@ -42,11 +42,11 @@ function login(username, password, next) {
   );
 }
 
-function register(username, email, password, next) {
+function register(username, email, password, profile_image, next) {
   run(
     `
-  INSERT INTO users (username, email, password_hash)
-    VALUES ("${username}", "${email}", MD5("${password}"))
+  INSERT INTO users (username, email, password_hash, profile_image)
+    VALUES ("${username}", "${email}", MD5("${password}"), "${profile_image}")
   `,
     (e) => {
       next(e)
@@ -57,7 +57,7 @@ function register(username, email, password, next) {
 function getUser(username, next) {
   run(
     `
-    SELECT username, email, aboutme
+    SELECT username, email, aboutme, profile_image
     FROM users
     WHERE username = "${username}"
     `,
@@ -73,11 +73,18 @@ function getUser(username, next) {
   );
 }
 
-function updateUser(username, aboutme, next) {
+function updateUser(username, aboutme, profile_image, next) {
+  var set = ''
+  if (aboutme) {
+    set += `aboutme = "${aboutme}"`;
+  }
+  if (profile_image) {
+    set += `profile_image = "${profile_image}"`;
+  }
   run(
     `
   UPDATE users
-    SET aboutme = "${aboutme}"
+    SET ${set}
     WHERE username = "${username}"
   `,
     (e) => {
