@@ -5,3 +5,9 @@ document.querySelectorAll("nav a").forEach((e) => {
     e.classList.add("current");
   }
 });
+
+var profile_image_form = document.getElementById("profile_image_form");
+
+document.querySelector("form#profile_image_form input").onchange = function() {
+  profile_image_form.submit();
+};

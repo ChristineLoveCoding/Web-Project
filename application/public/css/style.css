@@ -218,3 +218,16 @@ img {
   right: 0px;
   top: 200px;
 }
+
+#profile_image {
+  width: 200px;
+}
+
+#profile_image #profile_image_form {
+  display: none;
+}
+
+#profile_image:hover #profile_image_form {
+  display: block;
+  /* background-color: #000; */
+}
