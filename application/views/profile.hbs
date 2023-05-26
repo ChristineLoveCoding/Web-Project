@@ -16,17 +16,18 @@
         <input type="text" name="aboutme">
         <input type="submit" value="Save">
     </form>
+    <h3> My Videos </h3>
     <div id="photo_data">
     {{#each posts}}
-        <a href="/posts/{{this.id}}">
-            <div class="photo_wrapper" >
-                <img src="/{{this.thumbnail}}" width="100px" height="100px">
+        <div class="photo_wrapper" >
+            <a href="/posts/{{this.id}}">
+                <img src="/{{this.thumbnail}}">
                 <span>{{this.title}}</span>
                 <form action="/posts/{{this.id}}/delete" method="post">
-                <input type="submit" value="Delete">
+                  <input type="submit" value="Delete">
                 </form>
-            </div>
-        </a>
+            </a>
+        </div>
     {{/each}}
     </div>
 </section>

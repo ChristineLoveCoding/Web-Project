@@ -188,16 +188,33 @@ img {
   flex-wrap: wrap;
 }
 
-.photo_wrapper img{
-  position: absolute;
-  left: 0;
-  top:0;
+.photo_wrapper {
+  width: 300px;
+  height: 150px;
 }
 
+.photo_wrapper img{
+  position: absolute;
+  left: 0px;
+  top:0px;
+  width: 300px;
+  height: 200px;
+}
+
+/* title */
 .photo_wrapper span{
   position:absolute;
-  color:white;
-  font-size: 10px;
+  color:black;
+  font-size: 30px;
   left: 40px;
   top: 30px;
+}
+
+/* delete button */
+.photo_wrapper form{
+  position: absolute;
+  color:black;
+  font-size: 30px;
+  right: 0px;
+  top: 200px;
 }
