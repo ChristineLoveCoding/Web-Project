@@ -1,5 +1,6 @@
 <section>
-    <p >Bilibili (stylized bilibili), nicknamed B Site, is a video sharing website based in Shanghai where users can submit, view and add overlaid commentary on videos. Since the mid-2010s, Bilibili began to expand to a broader audience from its original niche market that focused on animation, comics, and games (ACG), and it has become one of the major Chinese over-the-top streaming platforms serving videos on demand such as documentaries, variety shows, and other original programming. </p>
+    <h1>Welcome to BiliBili !</h1>
+    <p >Bilibili (stylized bilibili), nicknamed B Site, is a video sharing website where users can upload video, view videos and comment on videos.  Bilibili began to expand to a broader audience from its original niche market that focused on animation, comics, and games (ACG), and it has become one of the major Chinese over-the-top streaming platforms serving videos on demand such as documentaries, variety shows, and other original programming. </p>
     <br>
 </section>
 
@@ -11,12 +12,12 @@
 
 <div id="photo_data">
 {{#each posts}}
-    <a href="/posts/{{this.id}}">
-        <div class="photo_wrapper" >
+    <div class="photo_wrapper" >
+        <a href="/posts/{{this.id}}">
             <img src="/{{this.thumbnail}}" width="100px" height="100px">
             <span>{{this.title}}</span>
-        </div>
-    </a>
+        </a>
+    </div>
 {{/each}}
 </div>
 

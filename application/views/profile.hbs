@@ -13,12 +13,12 @@
         {{user.aboutme}}
     </p>
     <form action="/users/{{username}}/update" method="post">
-        <input type="text" name="aboutme">
+        <textarea name="aboutme"></textarea>
         <input type="submit" value="Save">
     </form>
     <h3> My Videos </h3>
     <div id="photo_data">
-    {{#each posts}}
+        {{#each posts}}
         <div class="photo_wrapper" >
             <a href="/posts/{{this.id}}">
                 <img src="/{{this.thumbnail}}">
@@ -28,6 +28,6 @@
                 </form>
             </a>
         </div>
-    {{/each}}
+        {{/each}}
     </div>
 </section>
