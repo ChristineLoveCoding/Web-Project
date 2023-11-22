@@ -2,7 +2,7 @@
 
 Hi ! I am Christine
 
-This term project is a video sharing website, which allow the users to log in, log out, upload videos, and make comments about the video.
+This term project is a full-stack video sharing website, which allow the users to log in, log out, upload videos, and make comments about the video.
 
 # Purpose
 
