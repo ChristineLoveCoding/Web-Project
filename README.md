@@ -1,8 +1,8 @@
-# CSC 317 Course Project
+# CSC 317 Course Project YouTube Video 
 
-Hi ! I am Christine, my full name is Ting Feng, I am a CS Junior in SFSU. This is my CSC 317 course project. 
+Hi ! I am Christine
 
-This term project is a mini video website, which allow the users to log in, log out, upload videos, and make comments about the video.
+This term project is a video sharing website, which allow the users to log in, log out, upload videos, and make comments about the video.
 
 # Purpose
 
